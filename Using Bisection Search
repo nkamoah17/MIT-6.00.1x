@@ -1,0 +1,23 @@
+balance = 999999
+annualInterestRate = 0.18 
+
+monthlyInterestRate = annualInterestRate / 12
+epsilon  = 0.01
+lowerbound = balance / 12
+upperbound = (balance *( 1 + annualInterestRate)**12)/12
+middle = (lowerbound + upperbound ) / 2
+amount = 0
+
+while abs(middle - lowerbound) >= epsilon:
+    amount = balance
+    for i in range(12):
+         amount -= middle
+         amount *= (1+ monthlyInterestRate)
+    if amount > 0 :
+        lowerbound = middle
+        middle = ( lowerbound + upperbound) /2
+    elif amount < 0:
+        upperbound = middle
+        middle = (lowerbound + upperbound ) / 2    
+       
+print("Lowest payment: " + str(round(middle, 2)) )
